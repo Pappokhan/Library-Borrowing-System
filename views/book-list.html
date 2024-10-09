@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .book-item {
+            position: relative;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .book-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-item img {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .book-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .book-item a {
+            display: block;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .book-item a:hover {
+            text-decoration: underline;
+            color: #004d99;
+        }
+
+        .book-description {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .book-item img {
+                width: 120px;
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">Back to Home</a>
+        <h1>Book Gallery</h1>
+        <div class="gallery">
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="The Innovators">
+                    <h3>The Innovators</h3>
+                    <p class="book-description">The history of the digital revolution, told through the lives of the pioneers who made it happen.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="Code: The Hidden Language">
+                    <h3>Code: The Hidden Language of Computer Hardware and Software</h3>
+                    <p class="book-description">An exploration of the hidden language that powers computers and software.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="The Phoenix Project">
+                    <h3>The Phoenix Project</h3>
+                    <p class="book-description">A novel about IT, DevOps, and helping your business win in today's market.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="Artificial Intelligence: A Guide">
+                    <h3>Artificial Intelligence: A Guide for Thinking Humans</h3>
+                    <p class="book-description">A clear and compelling guide to AI for non-experts.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="Hackers: Heroes of the Computer Revolution">
+                    <h3>Hackers: Heroes of the Computer Revolution</h3>
+                    <p class="book-description">The fascinating story of the early computer hackers and their legacy.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="Sapiens: A Brief History">
+                    <h3>Sapiens: A Brief History of Humankind</h3>
+                    <p class="book-description">A groundbreaking narrative of humanity's creation and evolution.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="Cosmos">
+                    <h3>Cosmos</h3>
+                    <p class="book-description">Carl Sagan’s classic book on space and science.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="The Selfish Gene">
+                    <h3>The Selfish Gene</h3>
+                    <p class="book-description">Richard Dawkins’ influential book on evolutionary biology.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="A Brief History of Time">
+                    <h3>A Brief History of Time</h3>
+                    <p class="book-description">Stephen Hawking’s explanation of cosmology for the general reader.</p>
+                </a>
+            </div>
+            <div class="book-item">
+                <a href="borrow_form.html">
+                    <img src="cover.png" alt="The Gene: An Intimate History">
+                    <h3>The Gene: An Intimate History</h3>
+                    <p class="book-description">The history of the gene and its impact on human life.</p>
+                </a>
+            </div>
+            <!-- Additional book items can go here -->
+        </div>
+    </div>
+</body>
+
+</html>

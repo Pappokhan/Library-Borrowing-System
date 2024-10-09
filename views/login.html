@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .container img {
+            width: 350px;
+            height: auto;
+            margin-right: 40px;
+            border-radius: 10px;
+        }
+
+        .login-container {
+            width: 100%;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .login-container h3 {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: white;
+            padding: 0 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #5b0bb5;
+        }
+
+        .login-container p {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .login-container p a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-container p a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left side with image -->
+        <img src="log.png" alt="Library Logo">
+
+        <!-- Right side with form -->
+        <div class="login-container">
+            <center><h1>Library Borrowing System</h1></center>
+            <center><h3>Enter your login credentials</h3></center>
+
+            <?php if (isset($_GET['error']) && $_GET['error'] == '1'): ?>
+                <p class="error-message">Invalid username or password.</p>
+            <?php endif; ?>
+
+            <form action="login.php" method="post">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your Username" required>
+                    <span class="icon">👤</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                    <span class="icon">🔒</span>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+            <center><p> Not registered? <a href="account.html">Create an account</a></p></center>
+            <center><a href="reset-password.html">Forgot password</a></center> 
+        </div>
+    </div>
+</body>
+
+</html>

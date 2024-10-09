@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Adjust height as needed */
+        }
+
+        .container img {
+            width: 350px;
+            height: auto;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .form-container {
+            width: calc(100% - 350px); /* Adjust width based on image size */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: white;
+            padding: 0 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5b0bb5;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="reg.png" alt="Registration Image">
+        <div class="form-container">
+            <center><h2>Create Account</h2></center>
+            <form action="account.php" method="post">
+                <div class="input-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your Full Name" required>
+                    <span class="icon">👤</span>
+                </div>
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your Username" required>
+                    <span class="icon">👥</span>
+                    <small class="validation-message" style="color: red; display: none;"></small>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your Email" required>
+                    <span class="icon">📧</span>
+                    <small class="email-validation-message" style="color: red; display: none;"></small>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                    <span class="icon">🔒</span>
+                    <small class="password-validation-message" style="color: red; display: none;"></small>
+                    <div class="password-strength-meter" style="height: 5px; background-color: #ddd; margin-top: 5px;">
+                        <div class="strength-bar" style="height: 100%; width: 0; background-color: red;"></div>
+                    </div>
+                </div>
+                <input type="submit" value="Create Account">
+            </form><br>
+            <center><a href="login.html" class="login-link">Already have an account? Log in</a></center> 
+        </div>
+    </div>
+    <script>
+        // Username validation
+        document.getElementById('username').addEventListener('input', function() {
+            const username = this.value;
+            const validationMessage = document.querySelector('.validation-message');
+            
+            // Reset validation message
+            validationMessage.style.display = 'none';
+            validationMessage.textContent = '';
+    
+            // Check for special character
+            const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+            if (!specialCharRegex.test(username)) {
+                validationMessage.textContent = 'Username must include at least one special character.';
+                validationMessage.style.display = 'block';
+                return;
+            }
+    
+            // Check for uniqueness (this is a placeholder; implement your own logic)
+            const existingUsernames = ['user1', 'exampleUser'];
+            if (existingUsernames.includes(username)) {
+                validationMessage.textContent = 'Username must be unique.';
+                validationMessage.style.display = 'block';
+                return;
+            }
+    
+            // Check length and simplicity
+            if (username.length < 3 || username.length > 15) {
+                validationMessage.textContent = 'Username should be 3 to 15 characters long and easy to remember.';
+                validationMessage.style.display = 'block';
+                return;
+            }
+            
+            // Check for offensive language
+            const offensiveWords = ['badword1', 'badword2'];
+            for (let word of offensiveWords) {
+                if (username.includes(word)) {
+                    validationMessage.textContent = 'Username contains inappropriate language.';
+                    validationMessage.style.display = 'block';
+                    return;
+                }
+            }
+        });
+    
+        // Email validation
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value;
+            const emailValidationMessage = document.querySelector('.email-validation-message');
+    
+            // Reset validation message
+            emailValidationMessage.style.display = 'none';
+            emailValidationMessage.textContent = '';
+    
+            // Basic email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailValidationMessage.textContent = 'Please enter a valid email address.';
+                emailValidationMessage.style.display = 'block';
+                return;
+            }
+    
+            // Check for uniqueness (this is a placeholder; implement your own logic)
+            const existingEmails = ['example@example.com', 'test@test.com'];
+            if (existingEmails.includes(email)) {
+                emailValidationMessage.textContent = 'Email must be unique.';
+                emailValidationMessage.style.display = 'block';
+                return;
+            }
+        });
+    </script>
+    <script>
+        // Password validation
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const validationMessage = document.querySelector('.password-validation-message');
+            const strengthBar = document.querySelector('.strength-bar');
+            
+            // Reset validation message and strength bar
+            validationMessage.style.display = 'none';
+            validationMessage.textContent = '';
+            strengthBar.style.width = '0';
+            strengthBar.style.backgroundColor = 'red';
+    
+            let strength = 0;
+    
+            // Minimum length
+            if (password.length >= 6) {
+                strength++;
+            }
+    
+            // Character variety checks
+            if (/[a-z]/.test(password)) strength++; // lowercase
+            if (/[A-Z]/.test(password)) strength++; // uppercase
+            if (/\d/.test(password)) strength++; // numbers
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+    
+            // Avoid common patterns
+            const commonPatterns = ['123456', 'password', 'qwerty', 'abc123'];
+            if (commonPatterns.some(pattern => password.includes(pattern))) {
+                validationMessage.textContent = 'Password cannot contain common patterns.';
+                validationMessage.style.display = 'block';
+                strength = 0;
+            }
+    
+            // Personal information check (placeholder example)
+            const personalInfo = ['yourname', 'birthday'];
+            if (personalInfo.some(info => password.toLowerCase().includes(info))) {
+                validationMessage.textContent = 'Password cannot contain personal information.';
+                validationMessage.style.display = 'block';
+                strength = 0;
+            }
+    
+            // Set strength bar color and width based on strength
+            switch (strength) {
+                case 0:
+                case 1:
+                    strengthBar.style.width = '20%';
+                    strengthBar.style.backgroundColor = 'red';
+                    validationMessage.textContent = 'Password is very weak.';
+                    break;
+                case 2:
+                    strengthBar.style.width = '50%';
+                    strengthBar.style.backgroundColor = 'orange';
+                    validationMessage.textContent = 'Password is weak.';
+                    break;
+                case 3:
+                    strengthBar.style.width = '75%';
+                    strengthBar.style.backgroundColor = 'yellow';
+                    validationMessage.textContent = 'Password is strong.';
+                    break;
+                case 4:
+                    strengthBar.style.width = '100%';
+                    strengthBar.style.backgroundColor = 'green';
+                    validationMessage.textContent = 'Password is very strong.';
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Borrowing Form</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        h2 {
+            background-color: #7171d5;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .header a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            background-color: #7171d5;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header a:hover {
+            background-color: #5b5bb3;
+        }
+
+        .header .logout-button {
+            background-color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .header .logout-button:hover {
+            background-color: #c0392b;
+            border: 1px solid #c0392b;
+        }
+
+        .header input[type="search"] {
+            margin-left: 20px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            height: 200px;
+            width: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .button-50 {
+            appearance: button;
+            background-color: #000;
+            background-image: none;
+            border: 1px solid #000;
+            border-radius: 4px;
+            box-shadow: #fff 4px 4px 0 0, #000 4px 4px 0 1px;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: ITCAvantGardeStd-Bk, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            margin: 0 5px 10px 0;
+            overflow: visible;
+            padding: 12px 40px;
+            text-align: center;
+            text-transform: none;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .button-50:focus {
+            text-decoration: none;
+        }
+
+        .button-50:hover {
+            text-decoration: none;
+        }
+
+        .button-50:active {
+            box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
+            outline: 0;
+        }
+
+        .button-50:not([disabled]):active {
+            box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
+            transform: translate(2px, 2px);
+        }
+
+        @media (min-width: 768px) {
+            .button-50 {
+                padding: 12px 50px;
+            }
+        }
+
+        .form-popup {
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            transition: top 0.5s ease;
+            z-index: 10;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .form-popup.active {
+            top: 10%;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .form-popup button {
+            background-color: #7171d5;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .form-popup button:hover {
+            background-color: #5b5bb3;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 5;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+        
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input[type="search"] {
+            height: 40px;
+            flex: 1;
+            margin-right: 10px;
+            padding: 8px;
+        }
+
+        .search-container button {
+            height: 40px;
+            padding: 0 20px;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <center><div class="header">
+        <a href="logout.html" class="logout-button">Logout</a>
+        <a href="profile.php">Profile</a>
+        <a href="book-list.html">Books</a>
+        <a href="login.html">Login</a>
+        <a href="account.html">Create Account</a>
+        <form id="searchForm" action="search.php" method="GET">
+            <div class="search-container">
+                <input type="search" name="query" placeholder="Search for books..." required>
+                <button type="submit" class="button-50">Search</button>
+            </div>
+        </form>        
+    </div></center>
+
+    <h2>Library Book Borrowing System</h2>
+    <?php if (isset($_GET['message'])): ?>
+        <div class="message <?php echo strpos($_GET['message'], 'Error:') === 0 ? 'error' : 'success'; ?>">
+            <?php echo htmlspecialchars($_GET['message']); ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="image-container">
+        <img src="p1.jpg" alt="Book 1">
+        <img src="p2.jpg" alt="Book 2">
+        <img src="p3.jpeg" alt="Book 3">
+        <img src="p4.jpeg" alt="Book 4">
+        <img src="p5.jpeg" alt="Book 5">
+        <img src="p6.jpeg" alt="Book 6">
+    </div>
+
+    <!-- Updated button with "button-50" styling -->
+    <button id="borrowBtn" class="button-50">Open Library Borrowing Form</button>
+
+    <!-- Add the gif image under the button -->
+    <div>
+        <img src="gif.gif" alt="Library Borrowing Animation" style="width: 200px; height: auto; margin-top: 15px;">
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Form Popup -->
+    <div id="popupForm" class="form-popup">
+        <form action="process.php" method="post">
+            <label for="name">User Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" pattern="\d{2}-\d{5}-\d{1}" title="ID format should be 00-00000-0" required>
+
+            <label for="book_title">Book Title:</label>
+            <input type="text" id="book_title" name="book_title" required>
+
+            <label for="book_author">Book Author:</label>
+            <input type="text" id="book_author" name="book_author" required>
+
+            <label for="book_type">Books Genres:</label> 
+            <select id="book_type" name="book_type" required>
+                <option value="Fiction">Fiction</option>
+                <option value="Historical Fiction">Historical Fiction</option>
+                <option value="Romance">Romance</option>
+                <option value="Post-Apocalyptic Fiction">Post-Apocalyptic Fiction</option>
+                <option value="Dystopian Fiction">Dystopian Fiction</option>
+                <option value="Philosophy">Philosophy</option>
+                <option value="Epic Poetry">Epic Poetry</option>
+                <option value="Satire">Satire</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Gothic Fiction">Gothic Fiction</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Magical Realism">Magical Realism</option>
+                <option value="Horror">Horror</option>
+                <option value="Psychology">Psychology</option>
+                <option value="Self-help">Self-help</option>
+                <option value="Personal Finance">Personal Finance</option>
+                <option value="Business">Business</option>
+                <option value="Leadership">Leadership</option>
+                <option value="Strategy">Strategy</option>
+                <option value="Politics">Politics</option>
+                <option value="Economics">Economics</option>
+                <option value="Science">Science</option>
+                <option value="Biography">Biography</option>
+                <option value="Memoir">Memoir</option>
+            </select>
+
+            <label for="book">Select Your Book:</label><br>
+            <select id="book" name="book">
+                <option value="The Innovators">The Innovators</option>
+                <option value="Code: The Hidden Language of Computer Hardware and Software">Code: The Hidden Language of Computer Hardware and Software</option>
+                <option value="The Phoenix Project">The Phoenix Project</option>
+                <option value="Artificial Intelligence: A Guide for Thinking Humans">Artificial Intelligence: A Guide for Thinking Humans</option>
+                <option value="Hackers: Heroes of the Computer Revolution">Hackers: Heroes of the Computer Revolution</option>
+                <option value="Sapiens: A Brief History of Humankind">Sapiens: A Brief History of Humankind</option>
+                <option value="Cosmos">Cosmos</option>
+                <option value="The Selfish Gene">The Selfish Gene</option>
+                <option value="A Brief History of Time">A Brief History of Time</option>
+                <option value="The Gene: An Intimate History">The Gene: An Intimate History</option>
+                <option value="Guns, Germs, and Steel: The Fates of Human Societies">Guns, Germs, and Steel: The Fates of Human Societies</option>
+                <option value="The Silk Roads: A New History of the World">The Silk Roads: A New History of the World</option>
+                <option value="The Wright Brothers">The Wright Brothers</option>
+                <option value="Team of Rivals: The Political Genius of Abraham Lincoln">Team of Rivals: The Political Genius of Abraham Lincoln</option>
+                <option value="1776">1776</option>
+                <option value="The Lean Startup">The Lean Startup</option>
+                <option value="Zero to One: Notes on Startups, or How to Build the Future">Zero to One: Notes on Startups, or How to Build the Future</option>
+                <option value="How We Got to Now: Six Innovations That Made the Modern World">How We Got to Now: Six Innovations That Made the Modern World</option>
+                <option value="Where Good Ideas Come From: The Natural History of Innovation">Where Good Ideas Come From: The Natural History of Innovation</option>
+                <option value="Creativity, Inc.">Creativity, Inc.</option>
+            </select>
+
+            <label>Gender:</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label><br><br>
+
+            <label for="borrow_date">Borrow Date:</label>
+            <input type="date" id="borrow_date" name="borrow_date" required>
+
+            <label for="return_date">Return Date:</label>
+            <input type="date" id="return_date" name="return_date" required>
+
+            <label for="agreement">Agreement:</label><br>
+            <input type="checkbox" id="agreement" name="agreement" required>
+            <label for="agreement">I agree to return the book within the due date.</label><br><br>
+
+            <button type="submit">Borrow</button>
+            <button type="button" onclick="closePopup()">Close</button>
+            <button type="submit"><a href="book-list.html">Books list</a></button>
+        </form>
+    </div>
+
+    <script>
+        const borrowBtn = document.getElementById('borrowBtn');
+        const popupForm = document.getElementById('popupForm');
+        const overlay = document.getElementById('overlay');
+
+        borrowBtn.addEventListener('click', () => {
+            popupForm.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        function closePopup() {
+            popupForm.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        overlay.addEventListener('click', closePopup);
+
+        function showMessage(message) {
+            alert(message);
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+
+            if (message) {
+                showMessage(decodeURIComponent(message));
+            }
+        }
+    </script>
+    <footer></footer>
+        <p>&copy; 2024 Book Borrowing System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

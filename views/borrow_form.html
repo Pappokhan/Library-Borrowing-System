@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Borrowing Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-popup {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px; 
+            width: 100%;
+            max-width: 350px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6a11cb;
+            margin-bottom: 10px; 
+            font-size: 22px; 
+        }
+
+        label {
+            margin: 5px 0 3px;
+            display: block;
+            font-size: 13px; 
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 6px; 
+            margin-bottom: 8px; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px; 
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
+        button {
+            background-color: #6a11cb;
+            color: white;
+            padding: 6px; 
+            border: none;
+            border-radius: 4px;
+            font-size: 13px; 
+            cursor: pointer;
+            width: 48%;
+            margin-right: 2%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5b5bb3;
+        }
+
+        .button-cancel {
+            background-color: #e74c3c;
+            margin-right: 0;
+        }
+
+        .button-cancel:hover {
+            background-color: #c0392b;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px; 
+        }
+
+        .gender-label {
+            display: inline-block;
+            margin-right: 12px;
+            font-size: 13px; 
+        }
+
+        input[type="radio"] {
+            margin-right: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-popup">
+        <h1>Borrow a Book</h1>
+        <form action="process.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" pattern="\d{2}-\d{5}-\d{1}" title="ID format: 00-00000-0" required>
+
+            <label for="book_title">Book Title:</label>
+            <input type="text" id="book_title" name="book_title" required>
+
+            <label for="book_author">Book Author:</label>
+            <input type="text" id="book_author" name="book_author" required>
+
+            <label for="book_type">Book Genre:</label>
+            <select id="book_type" name="book_type" required>
+                <option value="Fiction">Fiction</option>
+                <option value="Historical Fiction">Historical Fiction</option>
+                <option value="Romance">Romance</option>
+                <option value="Post-Apocalyptic Fiction">Post-Apocalyptic Fiction</option>
+                <option value="Dystopian Fiction">Dystopian Fiction</option>
+                <option value="Philosophy">Philosophy</option>
+                <option value="Epic Poetry">Epic Poetry</option>
+                <option value="Satire">Satire</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Gothic Fiction">Gothic Fiction</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Magical Realism">Magical Realism</option>
+                <option value="Horror">Horror</option>
+                <option value="Psychology">Psychology</option>
+                <option value="Self-help">Self-help</option>
+                <option value="Personal Finance">Personal Finance</option>
+                <option value="Business">Business</option>
+                <option value="Leadership">Leadership</option>
+                <option value="Strategy">Strategy</option>
+                <option value="Politics">Politics</option>
+                <option value="Economics">Economics</option>
+                <option value="Science">Science</option>
+                <option value="Biography">Biography</option>
+                <option value="Memoir">Memoir</option>
+            </select>
+
+            <label for="book">Select Your Book:</label>
+            <select id="book" name="book">
+                <option value="the_innovators">The Innovators</option>
+                <option value="code">Code: The Hidden Language of Computer Hardware and Software</option>
+                <option value="phoenix_project">The Phoenix Project</option>
+                <option value="ai_guide">Artificial Intelligence: A Guide for Thinking Humans</option>
+                <option value="hackers">Hackers: Heroes of the Computer Revolution</option>
+                <option value="sapiens">Sapiens: A Brief History of Humankind</option>
+                <option value="cosmos">Cosmos</option>
+                <option value="selfish_gene">The Selfish Gene</option>
+                <option value="brief_history_of_time">A Brief History of Time</option>
+                <option value="the_gene">The Gene: An Intimate History</option>
+                <option value="guns_germs_steel">Guns, Germs, and Steel: The Fates of Human Societies</option>
+                <option value="silk_roads">The Silk Roads: A New History of the World</option>
+                <option value="wright_brothers">The Wright Brothers</option>
+                <option value="team_of_rivals">Team of Rivals: The Political Genius of Abraham Lincoln</option>
+                <option value="1776">1776</option>
+                <option value="lean_startup">The Lean Startup</option>
+                <option value="zero_to_one">Zero to One: Notes on Startups, or How to Build the Future</option>
+                <option value="how_we_got_to_now">How We Got to Now: Six Innovations That Made the Modern World</option>
+                <option value="where_good_ideas_come_from">Where Good Ideas Come From: The Natural History of Innovation</option>
+                <option value="creativity_inc">Creativity, Inc.</option>
+            </select>
+
+            <label>Gender:</label>
+            <div>
+                <label class="gender-label"><input type="radio" id="female" name="gender" value="female" required> Female</label>
+                <label class="gender-label"><input type="radio" id="male" name="gender" value="male" required> Male</label>
+                <label class="gender-label"><input type="radio" id="other" name="gender" value="other"> Other</label>
+            </div>
+
+            <label for="borrow_date">Borrow Date:</label>
+            <input type="date" id="borrow_date" name="borrow_date" required>
+
+            <label for="return_date">Return Date:</label>
+            <input type="date" id="return_date" name="return_date" required>
+
+            <div>
+                <input type="checkbox" id="agreement" name="agreement" required>
+                <label for="agreement" style="font-size: 12px;">I agree to return the book within the due date.</label>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit">Borrow</button>
+                <button type="button" onclick="window.location.href='book-list.html';">Close</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function closePopup() {
+            document.querySelector(".form-popup").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
